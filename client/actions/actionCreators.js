@@ -21,15 +21,15 @@ export function newPair(marketA, marketB, courseType){
 export function rebuildCurrentGraph(newHistoryA, newHistoryB){
   return{
     type: "REBUILD_CURRENT_GRAPH",
-    newCourseA,
-    newCourseB
+    newHistoryA,
+    newHistoryB
   }
 }
 
 export function newMarketsGraph(newHistoryA, newHistoryB){
   return{
     type: "NEW_MARKETS_GRAPH",
-    marketA,
-    marketB
+    newHistoryA,
+    newHistoryB
   }
 }

@@ -18,7 +18,7 @@ const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Graph}></IndexRoute>
+        <IndexRoute component={Graph}></IndexRoute>        
       </Route>
     </Router>
   </Provider>

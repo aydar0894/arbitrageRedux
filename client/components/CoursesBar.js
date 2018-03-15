@@ -5,9 +5,9 @@ var markets = firebase.database().ref('markets/pairs/btc-usd');
 class CoursesBar extends React.Component{
   componentDidMount() {
   	var t = this;
-  	var bitfinex = markets.child('bitfinex').child('currentPrice');
+  	var hitbtc = markets.child('hitbtc').child('currentPrice');
   	var gdax = markets.child('gdax').child('currentPrice');
-    bitfinex.on('value', function(snap){
+    hitbtc.on('value', function(snap){
       console.log(snap.val());
     	var price = snap.val();
       console.log(t.props)
@@ -19,7 +19,6 @@ class CoursesBar extends React.Component{
     	var price = snap.val();
       t.props.currentCourseChange(0, price);
   		return
-
   	});
   }
 
