@@ -1,8 +1,13 @@
 import React from 'react';
-import { getData } from "../data/utils"
+
+import Switcher from './Switcher';
+
+
 const ReactHighstock = require('react-highcharts/ReactHighstock');
+
 var firebase = require('./firebasecomp.js')();
-var graphData = firebase.database().ref('markets/pairs/btc-usd');
+var graphData = firebase.database().ref('markets/pairs/BTC/USD');
+
 
 
 // var data = [];
@@ -10,7 +15,9 @@ var graphData = firebase.database().ref('markets/pairs/btc-usd');
 
 
 class Graph extends React.Component{
-
+  shouldComponentUpdate(nextProps, nextState){
+    return true;
+  }
   componentDidMount() {
     var gdax = graphData.child('gdax/history');
     var hitbtc = graphData.child('hitbtc/history');
@@ -22,6 +29,7 @@ class Graph extends React.Component{
       Object.keys(data).forEach(function(key) {
         history.push([data[key].time*1000, data[key].price]);
       });
+      t.props.statisticsDataChange(history, 0);
       t.props.rebuildCurrentGraph(history, 0);
   		return
   	});
@@ -33,6 +41,7 @@ class Graph extends React.Component{
       Object.keys(data).forEach(function(key) {
         history.push([data[key].time*1000, data[key].price]);
       });
+      t.props.statisticsDataChange(0, history);
       t.props.rebuildCurrentGraph(0, history);
   		return
 
@@ -86,6 +95,7 @@ class Graph extends React.Component{
 
 		return (
 			<div>
+        <Switcher/>
         <ReactHighstock config={config}/>
       </div>
 		)

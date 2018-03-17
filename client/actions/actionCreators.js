@@ -16,6 +16,15 @@ export function newPair(marketA, marketB, courseType){
   }
 }
 
+export function statisticsDataChange(pointsA, pointsB){
+  return{
+    type: "STATISTICS_DATA_CHANGE",
+    pointsA,
+    pointsB
+  }
+}
+
+
 
 
 export function rebuildCurrentGraph(newHistoryA, newHistoryB){

@@ -2,9 +2,12 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import CoursesBar from './CoursesBar';
+import Switcher from './Switcher';
 
-class Main extends React.Component{  
-
+class Main extends React.Component{
+  shouldComponentUpdate(nextProps, nextState){
+    return true;
+  }
   render(){
     return(
       <div>

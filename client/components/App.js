@@ -8,7 +8,8 @@ import Main from './Main';
 function mapStateToProps(state){
   return{
     points: state.graphPoints,
-    current_courses: state.currentCoursesInfo
+    current_courses: state.currentCoursesInfo,
+    statistics: state.statisticsData
   }
 };
 
