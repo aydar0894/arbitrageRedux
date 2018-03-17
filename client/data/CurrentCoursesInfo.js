@@ -1,11 +1,11 @@
 const current_courses = [
   {
-    market: "Bitfinex",
+    market: "gdax",
     courseType: "BTC/USD",
     course: 10000
   },
   {
-    market: "Polonex",
+    market: "hitbtc",
     courseType: "BTC/USD",
     course: 9500
   }

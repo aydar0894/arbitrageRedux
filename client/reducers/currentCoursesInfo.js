@@ -13,7 +13,16 @@ function currentCoursesInfo(state = [], action){
         {...state[0], course: courseA},
         {...state[1], course: courseB}
       ]
+    case 'NEW_PAIR':
+      var marketA = action.marketA;
+      var marketB = action.marketB;
+      var pair = action.courseType;
+      return[
+        {...state[0], market: marketA, courseType: pair},
+        {...state[1], market: marketB, courseType: pair}
+      ]
     default:
+
       return state
   }
 

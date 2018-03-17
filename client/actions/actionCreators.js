@@ -12,7 +12,8 @@ export function newPair(marketA, marketB, courseType){
   return{
     type: "NEW_PAIR",
     marketA,
-    marketB
+    marketB,
+    courseType
   }
 }
 

@@ -10,7 +10,9 @@ function statisticsData(state = [], action){
       if(pointsA.length > 1 && pointsB.length > 1)
       {
         pointsA.forEach(function(point, i){
-          spreads.push(pointsA[i][1] > pointsB[i][1] ? (pointsA[i][1] - pointsB[i][1]) : (pointsB[i][1] - pointsA[i][1]));
+          if( pointsB[i]!= undefined){
+            spreads.push(pointsA[i][1] > pointsB[i][1] ? (pointsA[i][1] - pointsB[i][1]) : (pointsB[i][1] - pointsA[i][1]));
+          }
         });
       }
 

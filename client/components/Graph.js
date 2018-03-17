@@ -6,7 +6,7 @@ import Switcher from './Switcher';
 const ReactHighstock = require('react-highcharts/ReactHighstock');
 
 var firebase = require('./firebasecomp.js')();
-var graphData = firebase.database().ref('markets/pairs/BTC/USD');
+var markets = firebase.database().ref('markets/pairs/');
 
 
 
@@ -19,10 +19,11 @@ class Graph extends React.Component{
     return true;
   }
   componentDidMount() {
-    var gdax = graphData.child('gdax/history');
-    var hitbtc = graphData.child('hitbtc/history');
+    var dataOne = this.props.current_courses[0];
+    var dataTwo = this.props.current_courses[1];
     var t = this;
-    gdax.on('value', function(snap){
+    markets.off('value');
+    markets.child(dataOne.courseType).child(dataOne.market).child('history').on('value', function(snap){
       console.log(snap.val());
       var data = snap.val();
     	var history = [];
@@ -34,7 +35,7 @@ class Graph extends React.Component{
   		return
   	});
 
-    hitbtc.on('value', function(snap){
+    markets.child(dataTwo.courseType).child(dataTwo.market).child('history').on('value', function(snap){
       console.log(snap.val());
       var data = snap.val();
       var history = [];
@@ -55,7 +56,7 @@ class Graph extends React.Component{
         yAxis: {
             labels: {
                 formatter: function () {
-                    return this.value + 'USD/BTC';
+                    return this.value;
                 }
             },
             plotLines: [{
@@ -73,7 +74,7 @@ class Graph extends React.Component{
             }
         },
         series:[{
-          name: 'GDAX',
+          name: this.props.current_courses[0].market,
           data: this.props.points[0],
           tooltip: {
               pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
@@ -82,7 +83,7 @@ class Graph extends React.Component{
           }
         },
         {
-          name: 'HitBTC',
+          name: this.props.current_courses[1].market,
           data: this.props.points[1],
           tooltip: {
               pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
@@ -95,7 +96,6 @@ class Graph extends React.Component{
 
 		return (
 			<div>
-        <Switcher/>
         <ReactHighstock config={config}/>
       </div>
 		)

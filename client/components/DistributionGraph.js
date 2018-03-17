@@ -81,8 +81,7 @@ class DistributionGraph extends React.Component{
        }]
     };
     return(
-      <div>
-        <Switcher/>
+      <div>        
         <ReactHighcharts config={config}/>
       </div>
     )

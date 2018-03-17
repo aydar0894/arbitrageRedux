@@ -4,22 +4,21 @@ import {Link} from 'react-router';
 import StatisticsData from './StatisticsData';
 
 var firebase = require('./firebasecomp.js')();
-var markets = firebase.database().ref('markets/pairs/BTC/USD');
+var markets = firebase.database().ref('markets/pairs');
 
 class CoursesBar extends React.Component{
-  shouldComponentUpdate(nextProps, nextState){
-    return true;
-  }
+
   componentDidMount() {
   	var t = this;
-  	var hitbtc = markets.child('hitbtc').child('currentPrice');
-  	var gdax = markets.child('gdax').child('currentPrice');
-    hitbtc.on('value', function(snap){
+    var dataOne = this.props.current_courses[0];
+    var dataTwo = this.props.current_courses[1];
+    markets.off('value');
+    markets.child(dataOne.courseType).child(dataOne.market).child('currentPrice').on('value', function(snap){
     	var price = snap.val();
       t.props.currentCourseChange(price, 0);
   		return
   	});
-    gdax.on('value', function(snap){
+    markets.child(dataTwo.courseType).child(dataTwo.market).child('currentPrice').on('value', function(snap){
     	var price = snap.val();
       t.props.currentCourseChange(0, price);
   		return
@@ -39,13 +38,13 @@ class CoursesBar extends React.Component{
           </thead>
           <tbody>
             <tr>
-              <td>HitBTC</td>
-              <td>BTC/USD</td>
+              <td>{this.props.current_courses[0].market}</td>
+              <td>{this.props.current_courses[0].courseType}</td>
               <td>{this.props.current_courses[0].course}</td>
             </tr>
             <tr>
-              <td>GDAX</td>
-              <td>BTC/USD</td>
+              <td>{this.props.current_courses[1].market}</td>
+              <td>{this.props.current_courses[1].courseType}</td>
               <td>{this.props.current_courses[1].course}</td>
             </tr>
           </tbody>
