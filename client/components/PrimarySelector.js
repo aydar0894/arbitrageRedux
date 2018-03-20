@@ -2,12 +2,9 @@ import React from 'react';
 import {DropdownButton, MenuItem, Button} from 'react-bootstrap';
 
 var firebase = require('./firebasecomp.js')();
-var BU = firebase.database().ref('markets/pairs/BTC/USD');
-var EU = firebase.database().ref('markets/pairs/ETH/USD');
-var EB = firebase.database().ref('markets/pairs/ETH/BTC');
-var GLOBAL_MARKET = firebase.database().ref('markets/pairs/');
+var markets = firebase.database().ref('markets/pairs');
 
-
+var refs = [];
 
 
 
@@ -24,6 +21,65 @@ class PrimarySelector extends React.Component{
       currentMrketTwo: "",
       currentPair: "BTC/USD"
      };
+   }
+
+   componentDidMount(){
+     var t = this;
+     markets.child("BTC/USD").once('value', function(snap){
+       var markets = Object.keys(snap.val());
+       t.setState({
+               marketsFirst: markets,
+               currentMrketOne: markets[0],
+               currentMrketTwo: markets[1],
+               marketsSecond: markets});
+     });
+     var dataOne = this.props.current_courses[0];
+     var dataTwo = this.props.current_courses[1];
+
+
+     //Courses Info dispatches
+
+     refs.push(markets.child(dataOne.courseType).child(dataOne.market).child('currentPrice'));
+     markets.child(dataOne.courseType).child(dataOne.market).child('currentPrice').on('value', function(snap){
+     	var price = snap.val();
+       t.props.currentCourseChange(price, 0);
+   		return
+   	 });
+     refs.push(markets.child(dataTwo.courseType).child(dataTwo.market).child('currentPrice'));
+
+     markets.child(dataTwo.courseType).child(dataTwo.market).child('currentPrice').on('value', function(snap){
+     	var price = snap.val();
+       t.props.currentCourseChange(0, price);
+   		return
+   	 });
+
+     //Graph dispatches
+
+     refs.push(markets.child(dataOne.courseType).child(dataOne.market).child('history'));
+     markets.child(dataOne.courseType).child(dataOne.market).child('history').on('value', function(snap){
+       console.log(snap.val());
+       var data = snap.val();
+     	 var history = [];
+       Object.keys(data).forEach(function(key) {
+         history.push([data[key].time*1000, data[key].price]);
+       });
+       t.props.statisticsDataChange(history, 0);
+       t.props.rebuildCurrentGraph(history, 0);
+ 		    return
+   	 });
+     refs.push(markets.child(dataTwo.courseType).child(dataTwo.market).child('history'));
+     markets.child(dataTwo.courseType).child(dataTwo.market).child('history').on('value', function(snap){
+       console.log(snap.val());
+       var data = snap.val();
+       var history = [];
+       Object.keys(data).forEach(function(key) {
+         history.push([data[key].time*1000, data[key].price]);
+       });
+       t.props.statisticsDataChange(0, history);
+       t.props.rebuildCurrentGraph(0, history);
+   		return
+
+   	 });
    }
 
   onFirstMarketDropdownItemSelected(e){
@@ -43,56 +99,61 @@ class PrimarySelector extends React.Component{
 
   onSelectClick(e){
     console.log('selected', e);
-    var historyA = [];
-    var historyB = [];
+    this.props.newPair(this.state.currentMrketOne, this.state.currentMrketTwo, this.state.currentPair);
+    var dataOne = this.props.current_courses[0];
+    var dataTwo = this.props.current_courses[1];
     var t = this;
-    GLOBAL_MARKET.child(this.state.currentPair).child(this.state.currentMrketOne).child('currentPrice').once('value', function(snap){
-    	var price = snap.val();
+    refs.map((ref, index)=>{
+      ref.off();
+    });
+    refs = [];
+
+    //Courses Info dispatches
+
+    refs.push(markets.child(dataOne.courseType).child(dataOne.market).child('currentPrice'));
+    markets.child(dataOne.courseType).child(dataOne.market).child('currentPrice').on('value', function(snap){
+     var price = snap.val();
       t.props.currentCourseChange(price, 0);
-  		return
-  	});
-    GLOBAL_MARKET.child(this.state.currentPair).child(t.state.currentMrketTwo).child('currentPrice').once('value', function(snap){
-    	var price = snap.val();
+     return
+    });
+    refs.push(markets.child(dataTwo.courseType).child(dataTwo.market).child('currentPrice'));
+
+    markets.child(dataTwo.courseType).child(dataTwo.market).child('currentPrice').on('value', function(snap){
+     var price = snap.val();
       t.props.currentCourseChange(0, price);
-  		return
-  	});
-    GLOBAL_MARKET.child(this.state.currentPair).child(this.state.currentMrketOne).child('history').once('value', function(snap){
-      var data = snap.val();
-      Object.keys(data).forEach(function(key) {
-        historyA.push([data[key].time*1000, data[key].price]);
-      });
-      if(historyB.length > 0){
-        t.props.newPair(t.state.currentMrketOne, t.state.currentMrketTwo, t.state.currentPair);
-        t.props.rebuildCurrentGraph(historyA, historyB);
-      }
-  		return
-  	});
-    GLOBAL_MARKET.child(this.state.currentPair).child(this.state.currentMrketTwo).child('history').once('value', function(snap){
-      var data = snap.val();
-      Object.keys(data).forEach(function(key) {
-        historyB.push([data[key].time*1000, data[key].price]);
-      });
-      if(historyA.length > 0){
-        t.props.newPair(t.state.currentMrketOne, t.state.currentMrketTwo, t.state.currentPair);
-        t.props.rebuildCurrentGraph(historyA, historyB);
-      }
-  		return
-  	});
+     return
+    });
 
+    //Graph dispatches
 
+    refs.push(markets.child(dataOne.courseType).child(dataOne.market).child('history'));
+    markets.child(dataOne.courseType).child(dataOne.market).child('history').on('value', function(snap){
+      console.log(snap.val());
+      var data = snap.val();
+      var history = [];
+      Object.keys(data).forEach(function(key) {
+        history.push([data[key].time*1000, data[key].price]);
+      });
+      t.props.statisticsDataChange(history, 0);
+      t.props.rebuildCurrentGraph(history, 0);
+       return
+    });
+    refs.push(markets.child(dataTwo.courseType).child(dataTwo.market).child('history'));
+    markets.child(dataTwo.courseType).child(dataTwo.market).child('history').on('value', function(snap){
+      console.log(snap.val());
+      var data = snap.val();
+      var history = [];
+      Object.keys(data).forEach(function(key) {
+        history.push([data[key].time*1000, data[key].price]);
+      });
+      t.props.statisticsDataChange(0, history);
+      t.props.rebuildCurrentGraph(0, history);
+     return
+
+    });
+    
   };
 
-  componentDidMount(){
-    var t = this;
-    BU.once('value', function(snap){
-      var markets = Object.keys(snap.val());
-      t.setState({
-              marketsFirst: markets,
-              currentMrketOne: markets[0],
-              currentMrketTwo: markets[1],
-              marketsSecond: markets});
-    });
-  }
 
   render(){
 

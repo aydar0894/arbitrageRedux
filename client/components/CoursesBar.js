@@ -5,30 +5,14 @@ import StatisticsData from './StatisticsData';
 
 var firebase = require('./firebasecomp.js')();
 var markets = firebase.database().ref('markets/pairs');
-
+var refs = [];
 class CoursesBar extends React.Component{
 
-  componentDidMount() {
-  	var t = this;
-    var dataOne = this.props.current_courses[0];
-    var dataTwo = this.props.current_courses[1];
-    markets.off('value');
-    markets.child(dataOne.courseType).child(dataOne.market).child('currentPrice').on('value', function(snap){
-    	var price = snap.val();
-      t.props.currentCourseChange(price, 0);
-  		return
-  	});
-    markets.child(dataTwo.courseType).child(dataTwo.market).child('currentPrice').on('value', function(snap){
-    	var price = snap.val();
-      t.props.currentCourseChange(0, price);
-  		return
-  	});
-  }
-
   render(){
+    console.log(this.props.current_courses[0]);
     return(
       <div>
-        <table className="table" style={{margin: "auto"},{width:"30%"}}>
+        <table className="table" style={{margin: "auto", width: "30%"}}>
           <thead>
             <tr>
               <th scope="col">Market</th>
@@ -48,7 +32,7 @@ class CoursesBar extends React.Component{
               <td>{this.props.current_courses[1].course}</td>
             </tr>
           </tbody>
-        </table>
+        </table>        
         <StatisticsData {...this.props.statistics}/>
       </div>
     )

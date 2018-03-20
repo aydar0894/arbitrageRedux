@@ -19,6 +19,7 @@ function statisticsData(state = [], action){
       if(spreads.length > 1){
         var v = new jerzy.Vector(spreads);
         var ND = jerzy.Normality.shapiroWilk(v).p;
+        console.log(ND);
         var variance = ss.sampleVariance(spreads).toFixed(2);
         var spreadStandartDiviation = ss.sampleStandardDeviation(spreads).toFixed(2);
         var mean = ss.mean(spreads);

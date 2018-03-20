@@ -12,10 +12,10 @@ class Switcher extends React.Component{
       <div>
         <AppBar>
           <Navigation type='horizontal'>
-            <Link className="button" to={`/spread_distribution`}>
+            <Link className="Button" to={`/spread_distribution`}>
               DistributionGraph
             </Link>
-            <Link to={`/`}>
+            <Link className="Button" to={`/`}>
               SpreadGraph
             </Link>
           </Navigation>

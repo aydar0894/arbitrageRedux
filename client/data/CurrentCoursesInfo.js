@@ -2,12 +2,12 @@ const current_courses = [
   {
     market: "gdax",
     courseType: "BTC/USD",
-    course: 10000
+    course: -1
   },
   {
     market: "hitbtc",
     courseType: "BTC/USD",
-    course: 9500
+    course: -1
   }
 ];
 

@@ -7,7 +7,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 //import components
 import App from './components/App';
 import Graph from './components/Graph';
-import DistributionGraph from './components/DistributionGraph';
+import GraphicalData from './components/GraphicalData';
 //other imports
 import {Provider} from 'react-redux';
 import store from './store';
@@ -18,7 +18,7 @@ const router = (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Graph}></IndexRoute>
-        <Route path="/spread_distribution" component={DistributionGraph}></Route>
+        <Route path="/spread_distribution" component={GraphicalData}></Route>
       </Route>
     </Router>
   </Provider>
