@@ -1,5 +1,8 @@
 var configsFunc = (props) => {
   var config = {
+      title: {
+        text: 'Spread graph'
+      },
       rangeSelector: {
           selected: 4
       },

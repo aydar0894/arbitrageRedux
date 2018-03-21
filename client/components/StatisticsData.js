@@ -6,6 +6,7 @@ class StatisticsData extends React.Component{
   render(){
     return(
       <div>
+        <h1>Statistics data</h1>
         <table className="table table-dark">
           <thead>
             <tr>

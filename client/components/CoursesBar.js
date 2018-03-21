@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import StatisticsData from './StatisticsData';
-
+import ProfitabilityCalculator from './ProfitabilityCalculator';
 var firebase = require('./firebasecomp.js')();
 var markets = firebase.database().ref('markets/pairs');
 var refs = [];
@@ -11,7 +11,7 @@ class CoursesBar extends React.Component{
   render(){
     console.log(this.props.current_courses[0]);
     return(
-      <div>
+      <div>        
         <table className="table" style={{margin: "auto", width: "30%"}}>
           <thead>
             <tr>
@@ -32,8 +32,13 @@ class CoursesBar extends React.Component{
               <td>{this.props.current_courses[1].course}</td>
             </tr>
           </tbody>
-        </table>        
-        <StatisticsData {...this.props.statistics}/>
+        </table>
+        <div style={{width: "50%", display: "inline-block"}}>
+          <StatisticsData {...this.props.statistics}/>
+        </div>
+        <div style={{width: "50%", display: "inline-block"}}>
+          <ProfitabilityCalculator {...this.props}/>
+        </div>
       </div>
     )
   }

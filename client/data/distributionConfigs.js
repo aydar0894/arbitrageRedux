@@ -2,7 +2,7 @@ var configsFunc = (spreadPoints) => {
   var pointsInInterval = 5;
 
   var destribution_graph_config = {
-      title: {
+    title: {
       text: 'Spread Destribution Histogram'
     },
     margin: [50, 0, 50, 50],
@@ -31,7 +31,7 @@ var configsFunc = (spreadPoints) => {
     yAxis: [{
         title: { text: 'Spread' }
     }, {
-        title: { text: 'Probability' },
+        title: { text: 'Frequency' },
         opposite: true
     }],
 
