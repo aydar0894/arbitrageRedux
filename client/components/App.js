@@ -9,7 +9,8 @@ function mapStateToProps(state){
   return{
     points: state.graphPoints,
     current_courses: state.currentCoursesInfo,
-    statistics: state.statisticsData
+    statistics: state.statisticsData,
+    spread_table: state.spreadTable
   }
 };
 

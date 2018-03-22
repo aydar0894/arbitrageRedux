@@ -4,7 +4,8 @@ import {routerReducer} from 'react-router-redux';
 import graphPoints from './graphPoints';
 import currentCoursesInfo from './currentCoursesInfo';
 import statisticsData from './statisticsData';
+import spreadTable from './SpreadTable';
 
-const rootReducer = combineReducers({statisticsData, graphPoints, currentCoursesInfo, routing: routerReducer});
+const rootReducer = combineReducers({spreadTable, statisticsData, graphPoints, currentCoursesInfo, routing: routerReducer});
 
 export default rootReducer;

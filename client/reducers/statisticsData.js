@@ -3,7 +3,6 @@ import * as ss from 'simple-statistics';
 function statisticsData(state = [], action){
   switch (action.type) {
     case 'STATISTICS_DATA_CHANGE':
-      console.log(state);
       var pointsA = (action.pointsA === 0 ? state.pointsA : action.pointsA);
       var pointsB = (action.pointsB === 0 ? state.pointsB : action.pointsB);
       var spreads = [];
@@ -19,7 +18,6 @@ function statisticsData(state = [], action){
       if(spreads.length > 1){
         var v = new jerzy.Vector(spreads);
         var ND = jerzy.Normality.shapiroWilk(v).p;
-        console.log(ND);
         var variance = ss.sampleVariance(spreads).toFixed(2);
         var spreadStandartDiviation = ss.sampleStandardDeviation(spreads).toFixed(2);
         var mean = ss.mean(spreads);

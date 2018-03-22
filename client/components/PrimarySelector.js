@@ -3,6 +3,7 @@ import {DropdownButton, MenuItem, Button} from 'react-bootstrap';
 
 var firebase = require('./firebasecomp.js')();
 var markets = firebase.database().ref('markets/pairs');
+var spread_table = firebase.database().ref('markets/spread_table/');
 
 var refs = [];
 
@@ -16,7 +17,7 @@ class PrimarySelector extends React.Component{
     this.state = {
       marketsFirst: [],
       marketsSecond: [],
-      pairs: ["BTC/USD", "ETH/USD", "ETH/BTC"],
+      pairs: [],
       currentMrketOne: "",
       currentMrketTwo: "",
       currentPair: "BTC/USD"
@@ -25,6 +26,14 @@ class PrimarySelector extends React.Component{
 
    componentDidMount(){
      var t = this;
+     spread_table.child("currencies").once('value', function(snap){
+       let pairsObj = snap.val();
+       var newPairs = [];
+       Object.keys(pairsObj).map((key, index) => {
+         newPairs.push(pairsObj[key]);
+       });
+       t.state.pairs = newPairs;
+     });
      markets.child("BTC/USD").once('value', function(snap){
        var markets = Object.keys(snap.val());
        t.setState({
@@ -151,7 +160,7 @@ class PrimarySelector extends React.Component{
      return
 
     });
-    
+
   };
 
 

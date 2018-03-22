@@ -8,12 +8,15 @@ import rootReducer from './reducers/index';
 import current_courses from './data/currentCoursesInfo';
 import points from './data/graphPoints';
 import statistics from './data/statisticsData';
+import spread_table from './data/spreadTable';
+
 
 
 const defaultState = {
   graphPoints: points,
   currentCoursesInfo: current_courses,
-  statisticsData: statistics
+  statisticsData: statistics,
+  spreadTable: spread_table
 };
 
 const store = createStore(rootReducer, defaultState);

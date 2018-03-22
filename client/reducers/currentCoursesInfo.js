@@ -3,7 +3,6 @@
 //2. copy of current state
 
 function currentCoursesInfo(state = [], action){
-  console.log(action);
   switch (action.type) {
     case 'CURRENT_COURSE_CHANGE':
 

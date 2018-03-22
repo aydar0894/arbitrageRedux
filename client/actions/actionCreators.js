@@ -25,7 +25,12 @@ export function statisticsDataChange(pointsA, pointsB){
   }
 }
 
-
+export function rebuildSpreadTable(spreads){
+  return{
+    type: "REBUILD_SPREAD_TABLE",
+    spreads
+  }
+}
 
 
 export function rebuildCurrentGraph(newHistoryA, newHistoryB){
