@@ -31,7 +31,7 @@ class Main extends React.Component{
             <StatisticsData {...this.props.statistics}/>
           </div>
           <div style={{width: "50%", display: "inline-block"}}>
-            <ProfitabilityCalculator {...this.props}/>
+            <ProfitabilityCalculator statistics={this.props.statistics} statistics={this.props.statistics}/>
           </div>
         </div>
         <Switcher/>
