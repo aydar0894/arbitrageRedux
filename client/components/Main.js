@@ -16,17 +16,21 @@ class Main extends React.Component{
   render(){
     return(
       <div>
-        <h1>
-          <Link to="/">Crypto</Link>
-        </h1>
-        <PrimarySelector current_courses={this.props.current_courses}
-                         currentCourseChange={this.props.currentCourseChange}
-                         statisticsDataChange={this.props.statisticsDataChange}
-                         rebuildCurrentGraph={this.props.rebuildCurrentGraph}
-                         newPair={this.props.newPair}/>
-        <CoursesBar current_courses={this.props.current_courses}/>
+        <div id="header">
+          <div className="container">
+            <h1 className="text-center title">
+              <Link to="/">Crypto Arbitrage</Link>
+            </h1>
+            <CoursesBar current_courses={this.props.current_courses}/>
+            <PrimarySelector current_courses={this.props.current_courses}
+                             currentCourseChange={this.props.currentCourseChange}
+                             statisticsDataChange={this.props.statisticsDataChange}
+                             rebuildCurrentGraph={this.props.rebuildCurrentGraph}
+                             newPair={this.props.newPair}/>
+          </div>
+        </div>
 
-        
+
         <Switcher/>
         {React.cloneElement(this.props.children, this.props)}
       </div>

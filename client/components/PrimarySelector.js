@@ -168,7 +168,7 @@ class PrimarySelector extends React.Component{
 
 
     return(
-      <div>
+      <div className="text-center">
         <DropdownButton
           bsStyle={'success'}
           title={this.state.currentPair == undefined ? "Loading...":this.state.currentPair}

@@ -10,29 +10,16 @@ class CoursesBar extends React.Component{
   render(){
     console.log(this.props.current_courses[0]);
     return(
-      <div>
-        <table className="table" style={{ width: "30%"}}>
-          <thead>
-            <tr>
-              <th scope="col">Market</th>
-              <th scope="col">Pair</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{this.props.current_courses[0].market}</td>
-              <td>{this.props.current_courses[0].courseType}</td>
-              <td>{this.props.current_courses[0].course}</td>
-            </tr>
-            <tr>
-              <td>{this.props.current_courses[1].market}</td>
-              <td>{this.props.current_courses[1].courseType}</td>
-              <td>{this.props.current_courses[1].course}</td>
-            </tr>
-          </tbody>
-        </table>
-
+      <div className="row course-bar">
+        <div className="col-12 text-center currency-pair-title">{this.props.current_courses[1].courseType}</div>
+        <div className="col-6 market-info text-center">
+          <h3 className="title">{this.props.current_courses[0].market}</h3>
+          <div className="price">{this.props.current_courses[0].course}</div>
+        </div>
+        <div className="col-6 market-info text-center">
+          <h3 className="title">{this.props.current_courses[1].market}</h3>
+          <div className="price">{this.props.current_courses[1].course}</div>
+        </div>
       </div>
     )
   }
