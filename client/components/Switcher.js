@@ -10,17 +10,21 @@ class Switcher extends React.Component{
   render(){
     return(
       <div>
-        <AppBar>
-          <Navigation type='horizontal'>
-            <Link className="Button" to={`/spread_distribution`}>
-              DistributionGraph
-            </Link>
-            <Link className="Button" to={`/`}>
-              SpreadGraph
-            </Link>
-          </Navigation>
-        </AppBar>
-
+        <Link className="button" to={`/spread_distribution`}>
+          DistributionGraph
+        </Link>
+        <Link className="button" to={`/spread_table`}>
+          SpreadTable
+        </Link>
+        <Link className="button" to={`/statistics`}>
+          Statistics
+        </Link>
+        <Link className="button" to={`/calculator`}>
+          ProfitabilityCalculator
+        </Link>
+        <Link className="button" to={`/`}>
+          SpreadGraph
+        </Link>
       </div>
     )
   }

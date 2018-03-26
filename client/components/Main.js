@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Route,Link } from 'react-router';
 
 import CoursesBar from './CoursesBar';
 import Switcher from './Switcher';
@@ -25,15 +25,8 @@ class Main extends React.Component{
                          rebuildCurrentGraph={this.props.rebuildCurrentGraph}
                          newPair={this.props.newPair}/>
         <CoursesBar current_courses={this.props.current_courses}/>
-        <SpreadTable spread_table={this.props.spread_table} rebuildSpreadTable={this.props.rebuildSpreadTable}/>
-        <div>
-          <div style={{width: "50%", display: "inline-block"}}>
-            <StatisticsData {...this.props.statistics}/>
-          </div>
-          <div style={{width: "50%", display: "inline-block"}}>
-            <ProfitabilityCalculator statistics={this.props.statistics} statistics={this.props.statistics}/>
-          </div>
-        </div>
+
+        
         <Switcher/>
         {React.cloneElement(this.props.children, this.props)}
       </div>

@@ -19,22 +19,22 @@ class StatisticsData extends React.Component{
             <tr>
               <th scope="row">1</th>
               <td>Current spread</td>
-              <td>{this.props.currentSpread}</td>
+              <td>{this.props.statistics.currentSpread}</td>
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Expected spread</td>
-              <td>{this.props.spreadExpectedValue}</td>
+              <td>{this.props.statistics.spreadExpectedValue}</td>
             </tr>
             <tr>
               <th scope="row">3</th>
               <td>Spread has the Normal Distribution</td>
-              <td>{this.props.spreadFuncHasNormalDistribution.toString()}</td>
+              <td>{this.props.statistics.spreadFuncHasNormalDistribution.toString()}</td>
             </tr>
             <tr>
               <th scope="row">4</th>
               <td>Spread Standard Deviation</td>
-              <td>{this.props.spreadStandartDiviation}</td>
+              <td>{this.props.statistics.spreadStandartDiviation}</td>
             </tr>
           </tbody>
         </table>
